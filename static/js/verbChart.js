@@ -3,7 +3,7 @@ var VerbChart = function(placeholder, opts) {
   this.interval = 1000;
   this.placeholder = placeholder;
 
-  if(opts) {
+  if (opts) {
     this.graphSize = opts.size || this.graphSize;
     this.interval = opts.interval || this.interval;
   }
@@ -61,6 +61,11 @@ VerbChart.prototype.init = function() {
   var self = this;
 
   this.plot = $.plot(this.placeholder, this.points, {
+    legend: {
+      show: true,
+      noColumns: 5,
+      position: 'nw'
+    },
     series: {
       curvedLines: {
         apply: true,

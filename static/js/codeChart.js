@@ -61,6 +61,11 @@ CodeChart.prototype.init = function() {
   var self = this;
 
   this.plot = $.plot(this.placeholder, this.points, {
+    legend: {
+      show: true,
+      noColumns: 5,
+      position: 'nw'
+    },
     series: {
       curvedLines: {
         apply: true,

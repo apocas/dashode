@@ -1,4 +1,4 @@
-var BandwidthChart = function(placeholder, opts) {
+var LoadChart = function(placeholder, opts) {
   this.graphSize = 150;
   this.interval = 1000;
   this.placeholder = placeholder;
@@ -8,24 +8,30 @@ var BandwidthChart = function(placeholder, opts) {
     this.interval = opts.interval || this.interval;
   }
 
-  this.data = [];
   this.points = [{
-    'label': 'MBps',
-    'color': '#CDD452',
+    'label': 'Load %',
+    'color': '#FEE169',
     'data': [],
     'lines': {
       show: true
-    },
+    }
+  }, {
+    'label': 'Mem %',
+    'color': '#F9722E',
+    'data': [],
+    'lines': {
+      show: true
+    }
   }];
 };
 
-BandwidthChart.prototype.init = function() {
+LoadChart.prototype.init = function() {
   var self = this;
 
   this.plot = $.plot(this.placeholder, this.points, {
     legend: {
       show: true,
-      noColumns: 1,
+      noColumns: 2,
       position: 'nw'
     },
     series: {
@@ -41,7 +47,8 @@ BandwidthChart.prototype.init = function() {
     },
     yaxis: {
       min: 0,
-      tickDecimals: 1
+      max: 100,
+      tickDecimals: 0
     },
     xaxis: {
       mode: 'time',
@@ -49,41 +56,34 @@ BandwidthChart.prototype.init = function() {
       maxTickSize: [1, "hour"]
     }
   });
-
-  setInterval(function() {
-    self.formatData();
-    self.draw();
-    self.data = [];
-  }, this.interval);
 };
 
-BandwidthChart.prototype.draw = function() {
+LoadChart.prototype.draw = function() {
   this.plot.setData(this.points);
   this.plot.setupGrid();
   this.plot.draw();
 };
 
-BandwidthChart.prototype.appendData = function(req) {
-  this.data.push(req);
-};
-
-BandwidthChart.prototype.formatData = function() {
-  var counter = 0;
+LoadChart.prototype.appendData = function(info) {
   var d = new Date();
 
-  var total = 0;
+  var memperc = (info.freemem / info.totalmem) * 100;
+  var loadperc = info.loadpercentage;
 
-  for (var i = 0; i < this.data.length; i++) {
-    var req = this.data[i];
-
-    if(req.body_bytes_sent) {
-      total += req.body_bytes_sent;
-    }
-  }
-
-  this.points[0].data.push([d.getTime(), total/1024/1024]);
+  this.points[0].data.push([d.getTime(), loadperc]);
 
   if (this.points[0].data.length > this.graphSize) {
     this.points[0].data.shift();
   }
+
+  this.points[1].data.push([d.getTime(), memperc]);
+
+  if (this.points[1].data.length > this.graphSize) {
+    this.points[1].data.shift();
+  }
+
+  this.draw();
+};
+
+LoadChart.prototype.formatData = function() {
 };

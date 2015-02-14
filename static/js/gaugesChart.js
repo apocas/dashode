@@ -18,6 +18,8 @@ GaugesChart.prototype.init = function() {
   this.gauges.bw = this.createGauge('bwGauge', 'MBps', 0, 1, true);
   this.gauges.errors = this.createGauge('errorsGauge', 'Error %', 0, 100);
   this.gauges.auth = this.createGauge('authGauge', 'Auth %', 0, 100);
+  this.gauges.load = this.createGauge('loadGauge', 'Load', 0, 1, true);
+  this.gauges.mem = this.createGauge('memGauge', 'Mem %', 0, 100);
 
   setInterval(function() {
     self.formatData();
