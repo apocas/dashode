@@ -20,6 +20,13 @@ Simple & standalone HTTP requests realtime dashboard for clf based webservers.
  * Should support all web servers that features standard clf log format.
  * nginx, apache and others.
 
+## Design notes
+
+ * To feature a stupid simple usage
+ * Monolithic/self-contained
+ * Realtime only
+ * Behave like a debug tool / bragging dashboard
+
 ## License
 
 Pedro Dias - [@pedromdias](https://twitter.com/pedromdias)
