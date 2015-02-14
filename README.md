@@ -17,7 +17,7 @@ Simple & standalone HTTP requests realtime dashboard for clf based webservers.
 
 ## Support
 
- * Should support all web servers that features standard clf log format.
+ * Should support all web servers that support standard clf log format.
  * nginx, apache and others.
 
 ## Design notes
