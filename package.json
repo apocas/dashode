@@ -1,6 +1,6 @@
 {
   "name": "dashode",
-  "description": "HTTP requests dashboard for clf based webservers.",
+  "description": "Simple & standalone HTTP requests realtime dashboard for clf based webservers.",
   "version": "0.1.0",
   "author": "Pedro Dias <petermdias@gmail.com>",
   "maintainers": [
