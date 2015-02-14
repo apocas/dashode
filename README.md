@@ -15,6 +15,11 @@ Simple & standalone HTTP requests realtime dashboard for clf based webservers.
 
  * node main.js --log=/var/log/nginx/access.log --port=1337
 
+## Support
+
+ * Should support all web servers that features standard clf log format.
+ * nginx, apache and others.
+
 ## License
 
 Pedro Dias - [@pedromdias](https://twitter.com/pedromdias)
