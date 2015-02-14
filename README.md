@@ -2,6 +2,19 @@
 
 Simple & standalone HTTP requests realtime dashboard for clf based webservers.
 
+## Usage
+
+### Install
+
+ * git clone https://github.com/apocas/dashode
+ * cd dashode
+ * npm install
+ * node main.js
+
+### Options
+
+ * node main.js --log=/var/log/nginx/access.log --port=1337
+
 ## License
 
 Pedro Dias - [@pedromdias](https://twitter.com/pedromdias)

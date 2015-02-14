@@ -7,7 +7,7 @@ $(document).ready(function() {
   var w = window.innerWidth;
 
   var rw = h/$('#content2').children().length;
-  var aux = parseInt(w * 0.15) - 1;
+  var aux = w * 0.15;
   if(rw > aux) {
     rw = aux;
   }
