@@ -13,12 +13,15 @@
   <script src="/js/codeChart.js"></script>
   <script src="/js/verbChart.js"></script>
   <script src="/js/bandwidthChart.js"></script>
+  <script src="http://mbostock.github.com/d3/d3.js"></script>
+  <script src="/js/gauge.js"></script>
+  <script src="/js/gaugesChart.js"></script>
   <script src="/js/main.js"></script>
 </head>
 
 <body>
 
-  <div id="content">
+  <div id="content1" class="content">
     <div id="container1" class="container">
       <div id="placeHolder1" class="placeholder"></div>
     </div>
@@ -27,6 +30,21 @@
     </div>
     <div id="container3" class="container">
       <div id="placeHolder3" class="placeholder"></div>
+    </div>
+  </div>
+
+  <div id="content2" class="content">
+    <div id="containerG1" class="container">
+      <span id="requestsGauge"></span>
+    </div>
+    <div id="containerG2" class="container">
+      <span id="bwGauge"></span>
+    </div>
+    <div id="containerG3" class="container">
+      <span id="errorsGauge"></span>
+    </div>
+    <div id="containerG4" class="container">
+      <span id="authGauge"></span>
     </div>
   </div>
 
