@@ -6,7 +6,11 @@ $(document).ready(function() {
   var h = window.innerHeight;
   var w = window.innerWidth;
 
-  var rw = parseInt(w * 0.15) -1;
+  var rw = h/$('#content2').children().length;
+  var aux = parseInt(w * 0.15) - 1;
+  if(rw > aux) {
+    rw = aux;
+  }
 
   $('#content1').css('width', w - rw);
   $('#content2').css('width', rw);
