@@ -8,7 +8,6 @@ var BandwidthChart = function(placeholder, opts) {
     this.interval = opts.interval || this.interval;
   }
 
-  this.data = [];
   this.points = [{
     'label': 'MBps',
     'color': '#CDD452',
@@ -49,12 +48,6 @@ BandwidthChart.prototype.init = function() {
       maxTickSize: [1, "hour"]
     }
   });
-
-  setInterval(function() {
-    self.formatData();
-    self.draw();
-    self.data = [];
-  }, this.interval);
 };
 
 BandwidthChart.prototype.draw = function() {
@@ -63,18 +56,19 @@ BandwidthChart.prototype.draw = function() {
   this.plot.draw();
 };
 
-BandwidthChart.prototype.appendData = function(req) {
-  this.data.push(req);
+BandwidthChart.prototype.appendData = function(data) {
+  this.formatData(data);
+  this.draw();
 };
 
-BandwidthChart.prototype.formatData = function() {
+BandwidthChart.prototype.formatData = function(data) {
   var counter = 0;
   var d = new Date();
 
   var total = 0;
 
-  for (var i = 0; i < this.data.length; i++) {
-    var req = this.data[i];
+  for (var i = 0; i < data.length; i++) {
+    var req = data[i];
 
     if(req.body_bytes_sent) {
       total += req.body_bytes_sent;

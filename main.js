@@ -14,10 +14,12 @@ var server = require('http').Server(app),
   io = require('socket.io')(server),
   tail = new Tail(path);
 
+var requests = [];
+
 tail.on("line", function(data) {
   var req = parser(data);
   //console.log(req);
-  io.sockets.emit('request', req);
+  requests.push(req);
 });
 
 tail.on("error", function(error) {
@@ -25,12 +27,16 @@ tail.on("error", function(error) {
 });
 
 setInterval(function() {
-  io.sockets.emit('os', {
-    'load': os.loadavg(),
-    'totalmem': os.totalmem(),
-    'freemem': os.freemem(),
-    'loadpercentage': parseInt((os.loadavg()[0] *100) / os.cpus().length)
+  io.sockets.emit('data', {
+    'info': {
+      'load': os.loadavg(),
+      'totalmem': os.totalmem(),
+      'freemem': os.freemem(),
+      'loadpercentage': parseInt((os.loadavg()[0] * 100) / os.cpus().length)
+    },
+    'requests': requests
   });
+  requests = [];
 }, 1000);
 
 server.listen(port);

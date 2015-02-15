@@ -50,26 +50,23 @@ function init(rw) {
   gaugesChart.init();
   loadChart.init();
 
+  socket.on('data', function(data) {
+    codeChart.appendData(data.requests);
+    verbChart.appendData(data.requests);
+    bandwidthChart.appendData(data.requests);
+    gaugesChart.appendData(data.requests);
 
-  socket.on('request', function(req) {
-    //console.log(req);
-    codeChart.appendData(req);
-    verbChart.appendData(req);
-    bandwidthChart.appendData(req);
-    gaugesChart.appendData(req);
-  });
 
-  socket.on('os', function(info) {
-    if (gaugesChart.gauges.load.config.max < info.load[0]) {
-      gaugesChart.gauges.load = gaugesChart.createGauge('loadGauge', 'Load', 0, parseInt(info.load[0]) + 1, true);
+    if (gaugesChart.gauges.load.config.max < data.info.load[0]) {
+      gaugesChart.gauges.load = gaugesChart.createGauge('loadGauge', 'Load', 0, parseInt(data.info.load[0]) + 1, true);
     }
-    gaugesChart.gauges.load.data = info.load[0];
+    gaugesChart.gauges.load.data = data.info.load[0];
 
-    gaugesChart.gauges.mem.data = (info.freemem / info.totalmem) * 100;
+    gaugesChart.gauges.mem.data = (data.info.freemem / data.info.totalmem) * 100;
 
     gaugesChart.gauges.load.redraw();
     gaugesChart.gauges.mem.redraw();
 
-    loadChart.appendData(info);
+    loadChart.appendData(data.info);
   });
 }

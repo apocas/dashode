@@ -8,7 +8,6 @@ var CodeChart = function(placeholder, opts) {
     this.interval = opts.interval || this.interval;
   }
 
-  this.data = [];
   this.points = [{
     'label': '2xx',
     'color': '#CDD452',
@@ -87,12 +86,6 @@ CodeChart.prototype.init = function() {
       maxTickSize: [1, "hour"]
     }
   });
-
-  setInterval(function() {
-    self.formatData();
-    self.draw();
-    self.data = [];
-  }, this.interval);
 };
 
 CodeChart.prototype.draw = function() {
@@ -101,11 +94,12 @@ CodeChart.prototype.draw = function() {
   this.plot.draw();
 };
 
-CodeChart.prototype.appendData = function(req) {
-  this.data.push(req);
+CodeChart.prototype.appendData = function(data) {
+  this.formatData(data);
+  this.draw();
 };
 
-CodeChart.prototype.formatData = function() {
+CodeChart.prototype.formatData = function(data) {
   var counter = 0;
   var d = new Date();
 
@@ -117,8 +111,8 @@ CodeChart.prototype.formatData = function() {
     'other': 0
   };
 
-  for (var i = 0; i < this.data.length; i++) {
-    var req = this.data[i];
+  for (var i = 0; i < data.length; i++) {
+    var req = data[i];
     var code = 'other';
 
     if (req.status >= 200 && req.status < 300) {

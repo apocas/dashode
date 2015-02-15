@@ -8,7 +8,6 @@ var VerbChart = function(placeholder, opts) {
     this.interval = opts.interval || this.interval;
   }
 
-  this.data = [];
   this.points = [{
     'label': 'GET',
     'color': '#CDD452',
@@ -87,12 +86,6 @@ VerbChart.prototype.init = function() {
       maxTickSize: [1, "hour"]
     }
   });
-
-  setInterval(function() {
-    self.formatData();
-    self.draw();
-    self.data = [];
-  }, this.interval);
 };
 
 VerbChart.prototype.draw = function() {
@@ -101,11 +94,12 @@ VerbChart.prototype.draw = function() {
   this.plot.draw();
 };
 
-VerbChart.prototype.appendData = function(req) {
-  this.data.push(req);
+VerbChart.prototype.appendData = function(data) {
+  this.formatData(data);
+  this.draw();
 };
 
-VerbChart.prototype.formatData = function() {
+VerbChart.prototype.formatData = function(data) {
   var counter = 0;
   var d = new Date();
 
@@ -117,8 +111,8 @@ VerbChart.prototype.formatData = function() {
     'other': 0
   };
 
-  for (var i = 0; i < this.data.length; i++) {
-    var req = this.data[i];
+  for (var i = 0; i < data.length; i++) {
+    var req = data[i];
     var code = 'other';
 
     if (req.http_method == 'GET') {
