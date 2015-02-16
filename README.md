@@ -30,6 +30,7 @@ It was designed to debug and monitor nginx instances but it should work with any
  * Monolithic/self-contained
  * Realtime only
  * Behave like a debug tool / bragging dashboard
+ * Does not feature authentication
 
 ## License
 
