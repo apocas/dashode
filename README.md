@@ -2,6 +2,8 @@
 
 Simple & standalone HTTP requests realtime dashboard for clf based webservers.
 
+It was designed to debug and monitor nginx instances but it should work with anything that features a clf log.
+
 ## Usage
 
 ### Install
