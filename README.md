@@ -13,7 +13,7 @@ It was designed to debug and monitor nginx instances but it should work with any
  * git clone https://github.com/apocas/dashode
  * cd dashode
  * npm install
- * node main.js
+ * node main.js (defaults to --log=/var/log/nginx/access.log --port=1337)
 
 ### Options
 
