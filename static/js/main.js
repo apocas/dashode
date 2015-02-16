@@ -8,13 +8,16 @@ $(document).ready(function() {
   var h = window.innerHeight;
   var w = window.innerWidth;
 
+  h = h - $('#footer').height();
+
   var rw = h / $('#content2').children().length;
   var aux = w * 0.15;
   if (rw > aux) {
     rw = aux;
   }
+  rw++;
 
-  $('#content1').css('width', w - rw);
+  $('#content1').css('width', w - rw - 5);
   $('#content2').css('width', rw);
 
   $('#container1').css('height', h / 4);
