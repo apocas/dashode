@@ -14,6 +14,7 @@ It was designed to debug and monitor nginx instances but it should work with any
  * cd dashode
  * npm install
  * node main.js (defaults to --log=/var/log/nginx/access.log --port=1337)
+ * Point your browser to http://hostname:1337
 
 ### Options
 
@@ -23,6 +24,31 @@ It was designed to debug and monitor nginx instances but it should work with any
 
  * Should support all web servers that support standard clf log format.
  * nginx, apache and others.
+
+## Authentication
+
+ * Dashode does not feature authentication, you should push that to a reverse proxy if you need it.
+
+## nginx Authentication example
+ ```
+server {
+  listen	 8080;
+  server_name ~^(.+)$;
+
+  location / {
+    auth_basic "Restricted";
+    auth_basic_user_file /var/nginx/passwd;
+
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_http_version 1.1;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $host;
+
+    proxy_pass http://127.0.0.1:1337/;
+  }
+}
+```
 
 ## Design notes
 
