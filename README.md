@@ -26,11 +26,16 @@ It was designed to debug and monitor nginx instances but it should work with any
 
 ## Design notes
 
- * Usage must be stupid simple 
+ * Usage must be stupid simple
  * Monolithic/self-contained
  * Realtime only
  * Behave like a debug tool / bragging dashboard
  * Does not feature authentication
+
+## ToDo
+
+ * Improve clf parsing
+ * Improve Firefox performance
 
 ## License
 
