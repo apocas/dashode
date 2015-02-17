@@ -26,7 +26,7 @@ It was designed to debug and monitor nginx instances but it should work with any
 
 ## Design notes
 
- * To feature a stupid simple usage
+ * Usage must be stupid simple 
  * Monolithic/self-contained
  * Realtime only
  * Behave like a debug tool / bragging dashboard
