@@ -29,7 +29,7 @@ It was designed to debug and monitor nginx instances but it should work with any
 
  * Dashode does not feature authentication, you should push that to a reverse proxy if you need it.
 
-## nginx Authentication example
+### nginx Authentication example
  ```
 server {
   listen	 8080;
