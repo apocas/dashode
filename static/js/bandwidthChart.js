@@ -75,7 +75,7 @@ BandwidthChart.prototype.formatData = function(data) {
     }
   }
 
-  this.points[0].data.push([d.getTime(), total/1024/1024]);
+  this.points[0].data.push([d.getTime(), total/125000]);
 
   if (this.points[0].data.length > this.graphSize) {
     this.points[0].data.shift();
