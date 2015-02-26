@@ -9,7 +9,7 @@ var BandwidthChart = function(placeholder, opts) {
   }
 
   this.points = [{
-    'label': 'MBps',
+    'label': 'MB',
     'color': '#CDD452',
     'data': [],
     'lines': {
