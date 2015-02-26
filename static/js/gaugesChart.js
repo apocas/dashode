@@ -82,7 +82,7 @@ GaugesChart.prototype.formatData = function(data) {
     }
   }
 
-  totalBW = totalBW / 1024 / 1024;
+  totalBW = totalBW / 125000;
   errors = parseInt((errors / data.length) * 100);
   authed = parseInt((authed / data.length) * 100);
 
