@@ -59,6 +59,33 @@ CodeChart.prototype.init = function() {
     ticks: 5,
     ticksTreatment: 'glow'
   });
+
+  var legend = new Rickshaw.Graph.Legend({
+    graph: self.graph,
+    element: document.getElementById(self.placeholder + 'Legend')
+  });
+
+  var hoverDetail = new Rickshaw.Graph.HoverDetail({
+    graph: self.graph,
+    xFormatter: function(x) {
+      return new Date(x * 1000).toString();
+    }
+  });
+
+  var shelving = new Rickshaw.Graph.Behavior.Series.Toggle({
+    graph: self.graph,
+    legend: legend
+  });
+
+  var order = new Rickshaw.Graph.Behavior.Series.Order({
+    graph: self.graph,
+    legend: legend
+  });
+
+  var highlighter = new Rickshaw.Graph.Behavior.Series.Highlight({
+    graph: self.graph,
+    legend: legend
+  });
 };
 
 CodeChart.prototype.draw = function() {

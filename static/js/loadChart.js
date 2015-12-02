@@ -25,7 +25,8 @@ LoadChart.prototype.init = function() {
   this.graph = new Rickshaw.Graph({
     element: document.getElementById(self.placeholder),
     renderer: 'line',
-    series: self.points
+    series: self.points,
+    max: 100
   });
 
   this.xAxis = new Rickshaw.Graph.Axis.Time({
@@ -45,6 +46,18 @@ LoadChart.prototype.init = function() {
     },
     ticks: 5,
     ticksTreatment: 'glow'
+  });
+
+  var legend = new Rickshaw.Graph.Legend({
+    graph: self.graph,
+    element: document.getElementById(self.placeholder + 'Legend')
+  });
+
+  var hoverDetail = new Rickshaw.Graph.HoverDetail({
+    graph: self.graph,
+    xFormatter: function(x) {
+      return new Date(x * 1000).toString();
+    }
   });
 };
 

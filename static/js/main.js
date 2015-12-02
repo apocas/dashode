@@ -17,7 +17,7 @@ $(document).ready(function() {
   }
   rw++;
 
-  $('#content1').css('width', w - rw - 5);
+  $('#content1').css('width', w - rw - 20);
   $('#content2').css('width', rw);
 
   $('#container1').css('height', h / 4);
