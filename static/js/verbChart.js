@@ -9,89 +9,68 @@ var VerbChart = function(placeholder, opts) {
   }
 
   this.points = [{
-    'label': 'GET',
+    'name': 'GET',
     'color': '#CDD452',
-    'data': [],
-    'lines': {
-      show: true,
-      fill: true
-    },
-    'stack': true
+    'data': []
   }, {
-    'label': 'POST',
+    'name': 'POST',
     'color': '#FEE169',
-    'data': [],
-    'lines': {
-      show: true,
-      fill: true
-    },
-    'stack': true
+    'data': []
   }, {
-    'label': 'OPTIONS',
+    'name': 'OPTIONS',
     'color': '#F9722E',
-    'data': [],
-    'lines': {
-      show: true,
-      fill: true
-    },
-    'stack': true
+    'data': []
   }, {
-    'label': 'DELETE',
+    'name': 'DELETE',
     'color': '#C9313D',
-    'data': [],
-    'lines': {
-      show: true,
-      fill: true
-    },
-    'stack': true
+    'data': []
   }, {
-    'label': 'other',
+    'name': 'other',
     'color': '#68776C',
-    'data': [],
-    'lines': {
-      show: true,
-      fill: true
-    },
-    'stack': true
+    'data': []
   }];
 };
 
 VerbChart.prototype.init = function() {
   var self = this;
 
-  this.plot = $.plot(this.placeholder, this.points, {
-    legend: {
-      show: true,
-      noColumns: 5,
-      position: 'nw'
-    },
-    series: {
-      curvedLines: {
-        apply: true,
-        active: true,
-        monotonicFit: true
+  this.graph = new Rickshaw.Graph({
+    element: document.getElementById(self.placeholder),
+    renderer: 'area',
+    stroke: true,
+    series: self.points
+  });
+
+  this.xAxis = new Rickshaw.Graph.Axis.Time({
+    graph: self.graph,
+    ticksTreatment: 'glow'
+  });
+
+  this.yAxis = new Rickshaw.Graph.Axis.Y({
+    graph: self.graph,
+    tickFormat: function(y) {
+      var abs_y = Math.abs(y);
+      if (abs_y === 0) {
+        return '';
+      } else {
+        return y;
       }
     },
-    grid: {
-      hoverable: true,
-      autoHighlight: false
-    },
-    yaxis: {
-      min: 0,
-      tickDecimals: 0
-    },
-    xaxis: {
-      mode: 'time',
-      minTickSize: [30, "second"],
-      maxTickSize: [1, "hour"]
-    }
+    ticks: 5,
+    ticksTreatment: 'glow'
   });
 };
 
 VerbChart.prototype.draw = function() {
-  this.plot.setData(this.points);
-  this.plot.setupGrid();
-  this.plot.draw();
+  var self = this;
+  this.graph.configure({
+    width: $('#' + self.placeholder).width(),
+    height: $('#' + self.placeholder).height(),
+    unstack: false
+  });
+  this.graph.render();
+  this.xAxis.render();
+  this.yAxis.render();
 };
 
 VerbChart.prototype.appendData = function(data) {
@@ -130,7 +109,11 @@ VerbChart.prototype.formatData = function(data) {
 
   for (var property in codes) {
     if (codes.hasOwnProperty(property)) {
-      this.points[counter].data.push([d.getTime(), codes[property]]);
+
+      this.points[counter].data.push({
+        'x': parseInt(d.getTime() / 1000),
+        'y': codes[property]
+      });
 
       if (this.points[counter].data.length > this.graphSize) {
         this.points[counter].data.shift();

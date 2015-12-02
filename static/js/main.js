@@ -32,16 +32,16 @@ function init(rw) {
   var socket = io();
   var data = [];
 
-  var codeChart = new CodeChart('#placeHolder1', {
+  var codeChart = new CodeChart('placeHolder1', {
     'size': maxPoints
   });
-  var verbChart = new VerbChart('#placeHolder2', {
+  var verbChart = new VerbChart('placeHolder2', {
     'size': maxPoints
   });
-  var bandwidthChart = new BandwidthChart('#placeHolder3', {
+  var bandwidthChart = new BandwidthChart('placeHolder3', {
     'size': maxPoints
   });
-  var loadChart = new LoadChart('#placeHolder4', {
+  var loadChart = new LoadChart('placeHolder4', {
     'size': maxPoints
   });
   var gaugesChart = new GaugesChart({

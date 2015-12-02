@@ -16,7 +16,6 @@ GaugesChart.prototype.init = function() {
   this.gauges.requests = this.createGauge('requestsGauge', 'Req/s', 0, 50);
   this.gauges.bw = this.createGauge('bwGauge', 'MBps', 0, 1, true);
   this.gauges.errors = this.createGauge('errorsGauge', 'Error %', 0, 100);
-  this.gauges.auth = this.createGauge('authGauge', 'Auth %', 0, 100);
   this.gauges.load = this.createGauge('loadGauge', 'Load', 0, 1, true);
   this.gauges.mem = this.createGauge('memGauge', 'Mem %', 0, 100);
 };
@@ -31,7 +30,7 @@ GaugesChart.prototype.createGauge = function(container, label, min, max, decimal
     max: undefined != max ? max : 100,
     minorTicks: 5,
     decimal: decimalc
-  }
+  };
 
   var range = config.max - config.min;
   config.yellowZones = [{
@@ -52,7 +51,6 @@ GaugesChart.prototype.draw = function() {
   this.gauges.bw.redraw();
   this.gauges.requests.redraw();
   this.gauges.errors.redraw();
-  this.gauges.auth.redraw();
 };
 
 GaugesChart.prototype.appendData = function(data) {
@@ -63,7 +61,6 @@ GaugesChart.prototype.appendData = function(data) {
 GaugesChart.prototype.formatData = function(data) {
   var counter = 0;
   var totalBW = 0;
-  var authed = 0;
   var errors = 0;
 
   for (var i = 0; i < data.length; i++) {
@@ -76,25 +73,16 @@ GaugesChart.prototype.formatData = function(data) {
     if (!req.status || req.status >= 400) {
       errors++;
     }
-
-    if (req.remote_user !== undefined && req.remote_user !== null) {
-      authed++;
-    }
   }
 
   totalBW = totalBW / 125000;
   errors = parseInt((errors / data.length) * 100);
-  authed = parseInt((authed / data.length) * 100);
 
   if (isNaN(errors)) {
     errors = 0;
   }
-  if (isNaN(authed)) {
-    authed = 0;
-  }
 
   this.gauges.errors.data = errors;
-  this.gauges.auth.data = authed;
 
   if (this.gauges.bw.config.max < totalBW) {
     this.gauges.bw = this.createGauge('bwGauge', 'MBps', 0, parseInt(totalBW) + 1, true);

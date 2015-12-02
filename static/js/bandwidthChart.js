@@ -3,57 +3,56 @@ var BandwidthChart = function(placeholder, opts) {
   this.interval = 1000;
   this.placeholder = placeholder;
 
-  if(opts) {
+  if (opts) {
     this.graphSize = opts.size || this.graphSize;
     this.interval = opts.interval || this.interval;
   }
 
   this.points = [{
-    'label': 'MB',
+    'name': 'MB',
     'color': '#CDD452',
-    'data': [],
-    'lines': {
-      show: true
-    },
+    'data': []
   }];
 };
 
 BandwidthChart.prototype.init = function() {
   var self = this;
 
-  this.plot = $.plot(this.placeholder, this.points, {
-    legend: {
-      show: true,
-      noColumns: 1,
-      position: 'nw'
-    },
-    series: {
-      curvedLines: {
-        apply: true,
-        active: true,
-        monotonicFit: true
+  this.graph = new Rickshaw.Graph({
+    element: document.getElementById(self.placeholder),
+    renderer: 'line',
+    series: self.points
+  });
+
+  this.xAxis = new Rickshaw.Graph.Axis.Time({
+    graph: self.graph,
+    ticksTreatment: 'glow'
+  });
+
+  this.yAxis = new Rickshaw.Graph.Axis.Y({
+    graph: self.graph,
+    tickFormat: function(y) {
+      var abs_y = Math.abs(y);
+      if (abs_y === 0) {
+        return '';
+      } else {
+        return y;
       }
     },
-    grid: {
-      hoverable: true,
-      autoHighlight: false
-    },
-    yaxis: {
-      min: 0,
-      tickDecimals: 1
-    },
-    xaxis: {
-      mode: 'time',
-      minTickSize: [30, "second"],
-      maxTickSize: [1, "hour"]
-    }
+    ticks: 5,
+    ticksTreatment: 'glow'
   });
 };
 
 BandwidthChart.prototype.draw = function() {
-  this.plot.setData(this.points);
-  this.plot.setupGrid();
-  this.plot.draw();
+  var self = this;
+  this.graph.configure({
+    width: $('#' + self.placeholder).width(),
+    height: $('#' + self.placeholder).height()
+  });
+  this.graph.render();
+  this.xAxis.render();
+  this.yAxis.render();
 };
 
 BandwidthChart.prototype.appendData = function(data) {
@@ -70,12 +69,15 @@ BandwidthChart.prototype.formatData = function(data) {
   for (var i = 0; i < data.length; i++) {
     var req = data[i];
 
-    if(req.body_bytes_sent) {
+    if (req.body_bytes_sent) {
       total += req.body_bytes_sent;
     }
   }
 
-  this.points[0].data.push([d.getTime(), total/125000]);
+  this.points[0].data.push({
+    'x': parseInt(d.getTime() / 1000),
+    'y': total / 125000
+  });
 
   if (this.points[0].data.length > this.graphSize) {
     this.points[0].data.shift();

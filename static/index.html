@@ -4,18 +4,18 @@
   <title>dashode</title>
   <link href="css/main.css" rel="stylesheet" type="text/css">
 
+  <link href="css/rickshaw.css" rel="stylesheet" type="text/css">
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <script src="vendors/jquery.flot.js"></script>
-  <script src="vendors/jquery.flot.crosshair.js"></script>
-  <script src="vendors/jquery.flot.stack.js"></script>
-  <script src="vendors/jquery.flot.time.js"></script>
-  <script src="vendors/curvedLines.js"></script>
+
+  <script src="vendors/d3.v3.js"></script>
+  <script src="vendors/rickshaw.js"></script>
+
   <script src="socket.io/socket.io.js"></script>
   <script src="js/codeChart.js"></script>
   <script src="js/verbChart.js"></script>
   <script src="js/loadChart.js"></script>
   <script src="js/bandwidthChart.js"></script>
-  <script src="vendors/d3.v2.js"></script>
   <script src="js/gauge.js"></script>
   <script src="js/gaugesChart.js"></script>
   <script src="js/main.js"></script>
@@ -47,9 +47,6 @@
     </div>
     <div id="containerG3" class="container">
       <span id="errorsGauge"></span>
-    </div>
-    <div id="containerG4" class="container">
-      <span id="authGauge"></span>
     </div>
     <div id="containerG5" class="container">
       <span id="loadGauge"></span>
