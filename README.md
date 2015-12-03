@@ -10,8 +10,8 @@ It was designed to debug and monitor nginx instances but it should work with any
 
 ### Install
 
- * npm install -g dashode
- * dashode (defaults to --log=/var/log/nginx/access.log --port=1337)
+ * `npm install -g dashode`
+ * `dashode` (defaults to --log=/var/log/nginx/access.log --port=1337)
  * Point your browser to http://hostname:1337
 
 ### Options
