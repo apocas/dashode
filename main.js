@@ -18,8 +18,15 @@ var requests = [];
 
 tail.on("line", function(data) {
   var req = parser(data);
+
   //console.log(req);
-  requests.push(req);
+
+  var aux = {};
+  aux.status = req.status;
+  aux.body_bytes_sent = req.body_bytes_sent;
+  aux.http_method = http_method;
+
+  requests.push(aux);
 });
 
 tail.on("error", function(error) {
