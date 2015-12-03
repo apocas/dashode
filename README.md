@@ -10,10 +10,8 @@ It was designed to debug and monitor nginx instances but it should work with any
 
 ### Install
 
- * git clone https://github.com/apocas/dashode
- * cd dashode
- * npm install
- * node main.js (defaults to --log=/var/log/nginx/access.log --port=1337)
+ * npm install -g dashode
+ * dashode (defaults to --log=/var/log/nginx/access.log --port=1337)
  * Point your browser to http://hostname:1337
 
 ### Options
@@ -32,7 +30,7 @@ It was designed to debug and monitor nginx instances but it should work with any
 ### nginx Authentication example
  ```
 server {
-  listen	 8080;
+  listen 8080;
   server_name ~^(.+)$;
 
   location / {
@@ -54,14 +52,8 @@ server {
 
  * Usage must be stupid simple
  * Monolithic/self-contained
- * Realtime only
+ * Stateless & realtime only
  * Behave like a debug tool / bragging dashboard
- * Does not feature authentication
-
-## ToDo
-
- * Improve clf parsing
- * Improve Firefox performance
 
 ## License
 
