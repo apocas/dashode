@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var Tail = require('tail').Tail,
   parser = require('clf-parser'),
   express = require('express'),
