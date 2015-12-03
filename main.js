@@ -21,12 +21,15 @@ tail.on("line", function(data) {
 
   //console.log(req);
 
-  var aux = {};
-  aux.status = req.status;
-  aux.body_bytes_sent = req.body_bytes_sent;
-  aux.http_method = http_method;
+  if (req.status !== undefined && req.body_bytes_sent !== undefined && req.http_method !== undefined) {
+    var aux = {};
 
-  requests.push(aux);
+    aux.status = req.status;
+    aux.body_bytes_sent = req.body_bytes_sent;
+    aux.http_method = req.http_method;
+
+    requests.push(aux);
+  }
 });
 
 tail.on("error", function(error) {
