@@ -7,7 +7,7 @@ var Tail = require('tail').Tail,
 var argv = require('yargs').argv;
 
 var port = argv.port || 1337;
-var path = argv.path || '/var/log/nginx/access.log';
+var path = argv.path || argv.log || '/var/log/nginx/access.log';
 
 var app = express();
 app.use(express.static(__dirname + '/static'));
