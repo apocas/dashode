@@ -1,3 +1,5 @@
+# NOTE: https://github.com/apocas/dashode2 - more complex and feature rich (not so user friendly)
+
 # dashode
 
 Simple & standalone HTTP requests realtime dashboard for clf based webservers.
