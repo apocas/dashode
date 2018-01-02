@@ -1,0 +1,62 @@
+# Enforce LF line endings
+* text eol=lf
+
+# Text file extensions
+*.php  text  eol=lf
+*.js   text  eol=lf
+*.json text  eol=lf
+*.css  text  eol=lf
+*.less text  eol=lf
+*.inf  text  eol=lf
+*.txt  text
+*.html text  eol=lf
+*.htm  text  eol=lf
+*.xml  text  eol=lf
+
+# Scripts
+*.cmd text  eol=crlf
+*.sh  text  eol=lf
+
+
+# Binary file extensions
+*.phar binary
+*.dat binary
+*.exe binary
+*.dll binary
+
+## Documents
+*.pdf binary
+*.doc binary
+*.xls binary
+*.docx binary
+*.xlsx binary
+
+## Imgaes
+*.webp binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.bmp binary
+*.ico binary
+*.cur binary
+*.psd binary
+
+## Audio/Video/Flash
+*.mp3 binary
+*.wav binary
+*.flv binary
+*.swf binary
+*.mp4 binary
+
+## Archives
+*.rar binary
+*.zip binary
+*.gz binary
+*.7z binary
+
+## Fonts
+*.ttf binary
+*.eot binary
+*.woff binary
+*.otf binary
