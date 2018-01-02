@@ -21,7 +21,7 @@ var requests = [];
 tail.on("line", function(data) {
   var req = parser(data);
 
-  //console.log(req);
+  // console.log(req);
 
   if (req.status !== undefined && req.body_bytes_sent !== undefined && req.http_method !== undefined) {
     var aux = {};
@@ -37,6 +37,8 @@ tail.on("line", function(data) {
 tail.on("error", function(error) {
   console.log('TAIL ERROR: ', error);
 });
+
+checkTailWatch();
 
 setInterval(function() {
   io.sockets.emit('data', {
@@ -54,8 +56,24 @@ setInterval(function() {
 server.listen(port);
 
 io.on('connection', function(socket) {
-  console.log('Client connected');
+    console.log('Client connected');
+
+    checkTailWatch();
+
+    socket.on('disconnect', function (reason) {
+        console.log('Client disconnected:', reason);
+        checkTailWatch();
+    });
 });
+
+function checkTailWatch() {
+    if ( io.sockets.sockets.length ) {
+        tail.watch();
+    }
+    else {
+        tail.unwatch();
+    }
+}
 
 console.log('########################');
 console.log('dashode');
